@@ -33,4 +33,3 @@ spec:
         labelSelector:
           matchLabels:
             app: go-demo-app-res
-# Resources and topology spread hint for HA across zones where available.

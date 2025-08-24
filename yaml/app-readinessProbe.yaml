@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: go-demo-app-readiness
   labels:
-    app: go-demo-app
+    app: go-demo-app-readiness
 spec:
   replicas: 1
   selector:
@@ -27,4 +27,3 @@ spec:
           periodSeconds: 5
           successThreshold: 1
           failureThreshold: 3
-# Traffic is only routed to the Pod after the readiness probe succeeds.

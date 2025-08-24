@@ -1,9 +1,5 @@
 # Kubernetes Prompts & Manifests Portfolio
 
-This repository contains a portfolio of **prompt-engineering instructions** (designed to work well with tools like `kubectl-ai`) and the **resulting Kubernetes YAML manifests**.  
-Each prompt is written in English and follows good prompt-engineering practices (explicit role, constraints, validation steps).
-
-> Tip: Copy a prompt from the table and paste it into your AI assistant (e.g., `kubectl ai --generate -f -`) to generate or analyze manifests. The **EXAMPLE** column links to the manifest in `./yaml` at the repo root.
 
 | NAME | PROMPT | DESCRIPTION | EXAMPLE |
 |---|---|---|---|
@@ -17,8 +13,3 @@ Each prompt is written in English and follows good prompt-engineering practices 
 | app-resources.yaml | **Role:** Performance-conscious DevOps. **Task:** Add **resources** to the Deployment: requests `100m` CPU / `128Mi` memory; limits `500m` / `256Mi`. **Constraints:** include `topologySpreadConstraints` across zones on label `topology.kubernetes.io/zone` with `maxSkew: 1`. **Validation:** ensure selectors match; include comments explaining trade-offs. **Output:** Deployment manifest with resources & scheduling hints. | Shows resource sizing + scheduling. | [./yaml/app-resources.yaml](./yaml/app-resources.yaml) |
 | app-secret-env.yaml | **Role:** Security-minded SRE. **Task:** Create a **Secret** named `app-secret` with keys `API_KEY` and `DB_PASSWORD` (dummy base64 values), and a **Deployment** that imports them via `envFrom.secretRef`. The app prints the presence (not the values) of these vars on start. **Constraints:** set `envFrom` (not individual `env`), add a `securityContext` (runAsNonRoot, readOnlyRootFilesystem). **Validation:** secret and deployment in same namespace; avoid exposing secrets in logs. **Output:** multi-doc YAML. | Securely passing env via Secret. | [./yaml/app-secret-env.yaml](./yaml/app-secret-env.yaml) |
 
-## How this portfolio was authored
-
-- Prompts follow Google’s prompt-engineering guidance: clear role, constraints, and requested output with validation checks and comments.
-- Intended to be used with tools like [`kubectl-ai`](https://github.com/GoogleCloudPlatform/kubectl-ai).
-- Manifests are intentionally simple yet production-leaning for clarity.
