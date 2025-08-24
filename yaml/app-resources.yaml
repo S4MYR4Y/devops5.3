@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-demo-app-resources
+  labels:
+    app: go-demo-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: go-demo-app-res
+  template:
+    metadata:
+      labels:
+        app: go-demo-app-res
+    spec:
+      containers:
+      - name: web
+        image: nginxdemos/hello:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 256Mi
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: topology.kubernetes.io/zone
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app: go-demo-app-res
+# Resources and topology spread hint for HA across zones where available.
